@@ -13,8 +13,10 @@ class CreateClassLogbookDelegateTable extends Migration
      */
     public function up()
     {
-        Schema::create('class__logbook_delegate', function (Blueprint $table) {
+        Schema::create('logbook_delegate', function (Blueprint $table) {
             $table->id();
+            $table->string('logbookID');
+            $table->string('stdId');
             $table->timestamps();
         });
     }

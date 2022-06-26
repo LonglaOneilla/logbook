@@ -13,8 +13,10 @@ class CreateClassLogbookTable extends Migration
      */
     public function up()
     {
-        Schema::create('class__logbook', function (Blueprint $table) {
+        Schema::create('logbook', function (Blueprint $table) {
             $table->id();
+            $table->string('logbookID'); //equivalent to classID and year eg SWE1log22
+            $table-> string('className');//from field table
             $table->timestamps();
         });
     }

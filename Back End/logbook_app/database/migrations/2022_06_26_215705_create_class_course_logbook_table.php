@@ -13,8 +13,10 @@ class CreateClassCourseLogbookTable extends Migration
      */
     public function up()
     {
-        Schema::create('class_course_logbook', function (Blueprint $table) {
+        Schema::create('course_logbook', function (Blueprint $table) {
             $table->id();
+            $table->string('logbookID');
+            $table->string('courseId');
             $table->timestamps();
         });
     }

@@ -13,8 +13,12 @@ class CreateClassClassDelegateTable extends Migration
      */
     public function up()
     {
-        Schema::create('class_class_delegate', function (Blueprint $table) {
+        Schema::create('class_delegate', function (Blueprint $table) {
             $table->id();
+            $table->string('stdId'); //matricule which will serve as student password
+            $table->string('stdName');
+            $table->string('classId'); //from table 'field'
+            $table->string('std_email');//can also uniquely identify student, serve as login credential
             $table->timestamps();
         });
     }

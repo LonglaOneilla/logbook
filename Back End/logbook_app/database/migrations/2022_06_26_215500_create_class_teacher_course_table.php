@@ -13,8 +13,10 @@ class CreateClassTeacherCourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('class_teacher_course', function (Blueprint $table) {
+        Schema::create('teacher_course', function (Blueprint $table) {
             $table->id();
+            $table->string('T_email'); //whatever uniquely identifies teachers from teacher table
+            $table->string('courseId');
             $table->timestamps();
         });
     }

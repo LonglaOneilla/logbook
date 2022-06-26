@@ -13,8 +13,10 @@ class CreateClassLogbookLoginTable extends Migration
      */
     public function up()
     {
-        Schema::create('class__logbook_login', function (Blueprint $table) {
+        Schema::create('logbook_login', function (Blueprint $table) {
             $table->id();
+            $table->string('logbookID');
+            $table->string('password');
             $table->timestamps();
         });
     }

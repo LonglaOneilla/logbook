@@ -13,8 +13,11 @@ class CreateClassTeacherTable extends Migration
      */
     public function up()
     {
-        Schema::create('class_teacher', function (Blueprint $table) {
-            $table->id();
+        Schema::create('teacher', function (Blueprint $table) {
+            $table->id();//teacher's id
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('T_email');//teacher can also be identified by email.
             $table->timestamps();
         });
     }

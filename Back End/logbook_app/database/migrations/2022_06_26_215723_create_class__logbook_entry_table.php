@@ -13,8 +13,15 @@ class CreateClassLogbookEntryTable extends Migration
      */
     public function up()
     {
-        Schema::create('class__logbook_entry', function (Blueprint $table) {
+        Schema::create('logbook_entry', function (Blueprint $table) {
             $table->id();
+            $table->string('logbookID');
+            $table->string('T_email');
+            $table->string('courseId');
+            $table->date('date');
+            $table->time('startTime');
+            $table->time('endTime');
+            $table->integer('hours');
             $table->timestamps();
         });
     }
