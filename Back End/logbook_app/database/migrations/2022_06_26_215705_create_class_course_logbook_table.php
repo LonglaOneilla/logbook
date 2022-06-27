@@ -17,6 +17,7 @@ class CreateClassCourseLogbookTable extends Migration
             $table->id();
             $table->string('logbookID');
             $table->string('courseId');
+            $table->string('Semester');
             $table->timestamps();
         });
     }

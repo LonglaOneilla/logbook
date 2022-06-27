@@ -22,6 +22,7 @@ class CreateClassLogbookEntryTable extends Migration
             $table->time('startTime');
             $table->time('endTime');
             $table->integer('hours');
+            $table->string('Status'); //represents seignature status, either pending or signed.
             $table->timestamps();
         });
     }
