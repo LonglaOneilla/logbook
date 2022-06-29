@@ -120,7 +120,7 @@ class LoginState extends State<Login> {
               fontSize: 16.0);
           }
           else if (_user == Role.Teacher) {
-            Navigator.pushNamed(context, route.sign_logbook);
+            Navigator.pushNamed(context, route.tLanding);
             Fluttertoast.showToast(
               msg: "login successful",
               toastLength: Toast.LENGTH_SHORT,

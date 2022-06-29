@@ -5,6 +5,7 @@ import 'package:logbook_app/views/student/fill_logbook.dart';
 import 'package:logbook_app/views/student/courses.dart';
 import 'package:logbook_app/views/student/view_course.dart';
 import 'package:logbook_app/views/student/landing_page.dart';
+import 'package:logbook_app/views/teachers/landing_page.dart';
 import 'package:logbook_app/views/viewlogbook.dart';
 import 'package:logbook_app/views/teachers/signlogbook.dart';
 import 'package:logbook_app/views/index.dart';
@@ -18,6 +19,7 @@ const String view_courses = 'view courses to view their logbook content';
 const String new_courses = 'courses';
 const String index = 'login';
 const String stdLanding = 'student landing page';
+const String tLanding = 'teacher\'s landing page';
 
 // Control our page route flow
 Route<dynamic> controller(RouteSettings settings) {
@@ -38,6 +40,8 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => Login());
     case stdLanding:
       return MaterialPageRoute(builder: (context) => Landing());
+    case tLanding:
+      return MaterialPageRoute(builder: (context) => T_Landing());
     default:
       throw ('This route name does not exist');
   }

@@ -17,7 +17,7 @@ class CreateFieldTable extends Migration
             $table->id();
             $table->string('classId'); //class id will include accronym and level eg SWE1
             $table->string('className');
-            $table->string('Cyvle'); //eg btech, masters, etc
+            $table->string('Cycle'); //eg btech, masters, etc
             $table->string('Level');
             $table->timestamps();
         });
