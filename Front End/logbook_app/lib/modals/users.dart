@@ -1,27 +1,28 @@
+
 class User{
-  late String _email;
-  late int _id;
-  late String _password;
 
-  User();
+  late String email;
+  late int id;
+  late String password;
+  late String privilege;
 
-  User.name(this._email, this._password);
+  User.name();
 
-  String get password => _password;
+  User({required this.email, required this.password, required this.privilege, required int id});
 
-  set password(String value) {
-    _password = value;
+  factory User.fromJson(Map<String, dynamic> json) {
+
+    return User(
+        id: json['id'] as int,
+        email: json['email'] as String,
+        password: json['password'] as String,
+        
+        privilege:json['privilege'] as String,);
   }
 
-  int get id => _id;
-
-  set id(int value) {
-    _id = value;
+  @override
+  String toString() {
+    return 'Users{email: $email}';
   }
-
-  String get email => _email;
-
-  set email(String value) {
-    _email = value;
-  }
+  
 }

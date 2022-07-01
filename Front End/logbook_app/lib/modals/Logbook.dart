@@ -1,42 +1,34 @@
 class Logbook {
-  String _startTime = "";
-  String _endTime = "";
-  String _hour = "";
-  String _detail = "";
-  String _date = "";
+  late String startTime;
+  late String endTime;
+  late String hour;
+  late String detail;
+  late String date;
+  late String status = "pending";
 
-  //Logbook(this.startTime, this.endTime, this.hour, this.detail, this.date);
+  Logbook({required this.date, required this.endTime, required this.hour, required this.startTime, required this.detail, required this.status});
 
   Logbook.name();
 
-  String get date => _date;
+  String calc_hour(){
 
-  set date(String value) {
-    _date = value;
+    int value;
+    value = (int.parse(this.endTime) - int.parse(this.startTime));
+    int val = (value/100) as int;
+    this.hour=(val) as String;
+
+    return this.hour;
   }
 
-  String get detail => _detail;
-
-  set detail(String value) {
-    _detail = value;
-  }
-
-  String get hour => _hour;
-
-  set hour(String value) {
-    _hour = value;
-  }
-
-  String get endTime => _endTime;
-
-  set endTime(String value) {
-    _endTime = value;
-  }
-
-  String get startTime => _startTime;
-
-  set startTime(String value) {
-    _startTime = value;
+  factory Logbook.fromJson(Map<String, dynamic> json){
+    return Logbook(
+      date: json['date'],
+      startTime: json['startTime'],
+      endTime: json['endTime'],
+      hour: json['hour'],
+      detail: json['detail'],
+      status: json['status'],
+    );
   }
 }
 
