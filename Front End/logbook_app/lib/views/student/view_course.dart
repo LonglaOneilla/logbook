@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';// ignore_for_file: unnecessary_new
 import 'package:logbook_app/routes/route.dart' as route;
 import 'package:flutter/material.dart';
+import 'package:logbook_app/modals/users.dart' as user;
 
 //void main() => runApp(MyApp());
 

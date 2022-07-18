@@ -5,9 +5,10 @@ import 'package:logbook_app/routes/route.dart' as route;
 import 'package:flutter/material.dart';
 //import 'package:flutter/services.dart';
 //import 'package:intl/intl.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-//import 'package:logbook_app/modals/Logbook.dart';
+import 'package:logbook_app/modals/users.dart';
 
 //void main() => runApp(LogbookForm());
 
@@ -25,7 +26,7 @@ class LoginForm extends StatelessWidget {
 }
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  //const Login({super.key});
 
   @override
   LoginState createState() {
@@ -37,10 +38,12 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  String msg = '';
+  var session = FlutterSession();
 
   String _user = "Student";
 
-  var baseUrl = Uri.parse("http://192.168.8.103:8000/login/api");
+  var baseUrl = Uri.parse("http://192.168.8.100:8000/login/api");
   void login(String email, String pwd, String priv) async {
     final response = await http.post(baseUrl,
         headers: {'Content-Type': 'application/json', 'Charset': 'utf-8'},
@@ -56,8 +59,9 @@ class LoginState extends State<Login> {
     print(data['status']);
 
     if (data['status'] == true) {
+      User.saveUser(User.fromJson(data));
       if (priv == 'Student') {
-        Navigator.pushNamed(context, route.stdLanding);
+        Navigator.pushReplacementNamed(context, route.stdLanding);
         Fluttertoast.showToast(
             msg: "login successful",
             toastLength: Toast.LENGTH_SHORT,
@@ -69,47 +73,7 @@ class LoginState extends State<Login> {
       }
 
       if (priv == 'Teacher') {
-        Navigator.pushNamed(context, route.tLanding);
-        Fluttertoast.showToast(
-            msg: "login successful",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.white,
-            textColor: Colors.black,
-            fontSize: 16.0);
-      } 
-      /*print("data");
-     */
-    } else {
-      Fluttertoast.showToast(
-          msg: "not connected",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
-          //backgroundColor: Colors.red,
-          //textColor: Colors.white,
-          fontSize: 16.0);
-    }
-
-    //}
-    // else {print('failed to connect');}
-
-    /* final response =
-        await http.get(Uri.parse("http://192.168.8.103:8000/login/api"));
-
-    body:
-    jsonEncode(<String, String>{
-      'email': email,
-      'password': password,
-      'type': privilege,
-      'status': '',
-    });
-
-    var dataset = json.decode(response.body);
-    if (dataset.status == true) {
-      if (dataset.type == 'Student') {
-        Navigator.pushNamed(context, route.stdLanding);
+        Navigator.pushReplacementNamed(context, route.tLanding);
         Fluttertoast.showToast(
             msg: "login successful",
             toastLength: Toast.LENGTH_SHORT,
@@ -119,66 +83,31 @@ class LoginState extends State<Login> {
             textColor: Colors.black,
             fontSize: 16.0);
       }
-
-      if (dataset.type == 'Teacher') {
-        Navigator.pushNamed(context, route.tLanding);
-        Fluttertoast.showToast(
-            msg: "login successful",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.white,
-            textColor: Colors.black,
-            fontSize: 16.0);
-      } else {
-        Fluttertoast.showToast(
-            msg: "invalid entry",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 3,
-            //backgroundColor: Colors.red,
-            //textColor: Colors.white,
-            fontSize: 16.0);
-      }
       /*print("data");
      */
-    } else {
-      Fluttertoast.showToast(
-          msg: "not connected",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
-          //backgroundColor: Colors.red,
-          //textColor: Colors.white,
-          fontSize: 16.0);
-    }
 
-    //    var dataset = jsonDecode(getResponse.body);
-
-    final request = await http.post(
-      Uri.parse("http://192.168.8.103:8000/login/api"),
-      body: jsonEncode(<String, String>{
-        'email': email,
-        'password': password,
-        'type': privilege,
-      }),
-    );
-
-    var data = jsonDecode(request.body);
-
-    //print(data);
-
-    /*final response = await http.get(Uri.parse("http://192.168.8.103:8000/login/api"));
-
-    body: jsonEncode(<String,String>{
-      'email':email,
-      'password': password,
+  bool isLogin = false;
+  String text = "";
+  _getSession() async {
+    isLogin = await FlutterSession().get("isLogin");
+    setState(() {
+      text = isLogin.toString();
     });
-   // if(response.statusCode==200){
-      var data = jsonDecode(response.body);
-      print(data);
-   // }*/*/
   }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getSession();
+    print("session == " + isLogin.toString());
+  }
+
+    } else {
+      this.msg = "Email or password incorrect";
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -263,16 +192,6 @@ class LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: Text("MyClassroom"),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -285,12 +204,18 @@ class LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Login", style: TextStyle(color: Colors.green)),
+                  
                   SizedBox(height: 25.0),
                   email,
                   SizedBox(height: 25.0),
                   password,
                   SizedBox(height: 25.0),
                   role,
+                  SizedBox(height: 25.0),
+                  Text(
+                    this.msg,
+                    style: TextStyle(color: Colors.red),
+                  ),
                   SizedBox(
                     height: 55.0,
                   ),
@@ -305,6 +230,10 @@ class LoginState extends State<Login> {
         ),
       ),
     );
+  }
+  _setSession() async {
+    await session.set("isLogin", true);
+    
   }
 }
 
