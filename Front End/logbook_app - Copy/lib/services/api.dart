@@ -4,14 +4,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Network{
 
-  var baseUrl = "http://192.168.8.101:8000";
+  var baseUrl = "http://192.168.8.100:8000";
 
   var token;
 
   _getToken() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    token = jsonDecode(localStorage.getString('token'))['token'];
-    print(token);
+    token = jsonDecode(localStorage.getString('token'));//['token'];
+    //print(token);
 
     return token;
   }

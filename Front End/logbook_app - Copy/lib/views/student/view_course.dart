@@ -73,11 +73,19 @@ class _ViewCoursesState extends State<ViewCourses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff151515),
+      //backgroundColor: const Color(0xff151515),
       appBar: AppBar(
-        title: const Text('Home'),
-        backgroundColor: const Color(0xff151515),
-        automaticallyImplyLeading: false,
+        title: const Text("Courses"),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: 30,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.power_settings_new),
