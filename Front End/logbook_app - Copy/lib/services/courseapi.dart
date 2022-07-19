@@ -10,6 +10,8 @@ static Future<List<Course>> getStudent(var email) async {
     var body = json.decode(res.body);
     final response = await Network().getData(url);
     List<Course> list = parseUser(response.body);
+    print(response.body);
+    print(list);
     return list;
   }
   

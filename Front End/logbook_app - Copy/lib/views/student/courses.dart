@@ -70,6 +70,7 @@ class _CoursesState extends State<Courses> {
         });
       }
     });
+    print(_course);
   }
 
   @override
@@ -158,18 +159,15 @@ class _CoursesState extends State<Courses> {
         ]),
         for (Course course in _course)
           TableRow(children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-              child: Text(
-                "${course.title}",
+            ListTile(
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                child: Text(
+                  "${course.title}",
+                ),
+                
               ),
-            ),
-            FlatButton(
-              child: const Icon(
-                Icons.chevron_right,
-                color: Colors.blue,
-              ),
-              onPressed: () {
+              onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LogBookForm()));
               },
